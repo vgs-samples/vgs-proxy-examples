@@ -12,5 +12,5 @@ jobs:
       enabled: true
     steps:
       - checkout
-      - run:
-          command: docker build python/
+      - run: docker build -t python-example python/
+      - run: docker run -t python-example
