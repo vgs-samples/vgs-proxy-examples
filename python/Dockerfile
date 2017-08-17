@@ -7,4 +7,4 @@ WORKDIR /src
 # https://stackoverflow.com/a/42334357
 RUN pip3 install -r requirements.txt
 
-CMD ["python3 /src/example.py"]
+CMD ["python", "/src/example.py"]
