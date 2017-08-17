@@ -6,5 +6,6 @@ ADD . /src
 WORKDIR /src
 # https://stackoverflow.com/a/42334357
 RUN pip3 install -r requirements.txt
+RUN chmod u+x /src/example.py
 
-CMD ["python", "/src/example.py"]
+CMD /src/example.py
