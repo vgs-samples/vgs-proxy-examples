@@ -13,4 +13,4 @@ jobs:
     steps:
       - checkout
       - run: docker build -t python-example python/
-      - run: docker run -t python-example
+      - run: docker run -t --env-file <(env | grep HTTP_PROXY) python-example
