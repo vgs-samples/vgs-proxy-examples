@@ -1,1 +1,2 @@
-requests >= 1.2.3
+requests==2.18.4
+faker==0.7.18

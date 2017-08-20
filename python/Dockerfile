@@ -1,13 +1,14 @@
-FROM frolvlad/alpine-python3
+ARG BASE_IMAGE_TAG=3
 
+FROM python:$BASE_IMAGE_TAG
 
-RUN pip install --upgrade pip
+RUN echo $(python --version)
 
 ADD . /src
 WORKDIR /src
 
 # https://stackoverflow.com/a/42334357
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 RUN chmod u+x /src/example.py
 
-CMD /src/example.py
+CMD ["python", "example.py"]
