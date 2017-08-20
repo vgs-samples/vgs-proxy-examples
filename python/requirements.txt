@@ -1,1 +1,2 @@
-certifi==0.0.8
+requests==2.18.4
+faker==0.7.18
