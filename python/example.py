@@ -6,10 +6,11 @@ import json
 from faker import Factory
 
 
-username = os.environ.get('FORWARD_HTTP_PROXY_USERNAME') or 'US6JXwGY219cUNWJ8jotyAMw'
-password = os.environ.get('FORWARD_HTTP_PROXY_PASSWORD') or '81d369b2-8c35-4ba4-9748-24315b15abaa'
-forward_proxy = os.environ.get('FORWARD_HTTP_PROXY_HOST') or 'tntbeiahp7q.SANDBOX.verygoodproxy.com:8080'
-reverse_proxy = os.environ.get('REVERSE_HTTP_PROXY_HOST') or 'tntbeiahp7q.SANDBOX.verygoodproxy.com'
+
+username = os.environ.get('FORWARD_HTTP_PROXY_USERNAME')
+password = os.environ.get('FORWARD_HTTP_PROXY_PASSWORD')
+forward_proxy = os.environ.get('FORWARD_HTTP_PROXY_HOST')
+reverse_proxy = os.environ.get('REVERSE_HTTP_PROXY_HOST')
 print(username, password, forward_proxy, reverse_proxy)
 
 fake = Factory.create()
