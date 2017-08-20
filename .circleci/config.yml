@@ -3,6 +3,7 @@ jobs:
   build:
     working_directory: ~/vault-examples
     docker:
+      - image: docker:17.06.0-ce-git
     environment:
       FORWARD_HTTP_PROXY_USERNAME: USnrfoj6Jk29uqVnFNmeH2r4
       FORWARD_HTTP_PROXY_PASSWORD: e8a1e647-0c4a-4524-8305-da88f1c3ac59
@@ -12,8 +13,6 @@ jobs:
       enabled: true
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 17.06.0-ce
       - run: docker build --build-arg BASE_IMAGE_TAG=2 -t python2-example python/
       - run: docker build -t python3-example python/
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) python2-example
