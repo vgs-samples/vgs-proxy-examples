@@ -13,7 +13,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
-        version: 17.06.0-ce
+          version: 17.06.0-ce
       - run: docker build --build-arg BASE_IMAGE_TAG=2 -t python2-example python/
       - run: docker build -t python3-example python/
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) python2-example
