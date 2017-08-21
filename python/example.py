@@ -1,11 +1,7 @@
-#!/usr/bin/env python3
-
 import os
 import requests
 import json
 from faker import Factory
-
-
 
 username = os.environ.get('FORWARD_HTTP_PROXY_USERNAME')
 password = os.environ.get('FORWARD_HTTP_PROXY_PASSWORD')
@@ -36,7 +32,6 @@ def tokenize_via_reverse_proxy(original_data):
         'https://{}/post'.format(reverse_proxy),
         data=original_data,
         headers={"Content-type": "application/json", "VGS-Log-Request": "all"},
-        proxies={"http": "{}/post".format(reverse_proxy)},
         verify=False
     )
     assert r.status_code == 200
@@ -61,6 +56,7 @@ def main():
 
     tokenized_value = tokenize_via_reverse_proxy(original_value)
     print(tokenized_value)
+    assert original_value != tokenized_value
 
     revealed_value = reveal_via_forward_proxy(tokenized_value)
     print(revealed_value)

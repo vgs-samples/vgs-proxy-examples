@@ -3,3 +3,4 @@ env/
 *.iml
 .env
 *.pyc
+enrichment.py
