@@ -4,3 +4,4 @@ env/
 .env
 *.pyc
 enrichment.py
+*.lock
