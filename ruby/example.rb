@@ -3,11 +3,11 @@ require 'faraday'
 require 'json'
 require 'faker'
 
+@username = ENV['FORWARD_HTTP_PROXY_USERNAME']
+@password = ENV['FORWARD_HTTP_PROXY_PASSWORD']
+@forward_proxy = ENV['FORWARD_HTTP_PROXY_HOST']
+@reverse_proxy = ENV['REVERSE_HTTP_PROXY_HOST']
 
-@username = 'US6JXwGY219cUNWJ8jotyAMw'
-@password = '81d369b2-8c35-4ba4-9748-24315b15abaa'
-@forward_proxy = 'tntbeiahp7q.SANDBOX.verygoodproxy.com:8080'
-@reverse_proxy = 'tntbeiahp7q.SANDBOX.verygoodproxy.com'
 
 def random_json
   return {
@@ -17,8 +17,7 @@ end
 
 def tokenize_via_reverse_proxy(original_data)
   connection = Faraday.new(:url => "https://#{@reverse_proxy}",
-                           :headers => {'Content-type' => 'application/json', 'VGS-Log-Request' => 'all'},
-                           :ssl => {:verify => false}) do |f|
+                           :headers => {'Content-type' => 'application/json', 'VGS-Log-Request' => 'all'}) do |f|
     f.response :json
     f.adapter Faraday.default_adapter
   end
@@ -31,9 +30,8 @@ def reveal_via_forward_proxy(tokenized_data)
   connection = Faraday.new(
       :url => 'https://httpbin.verygoodsecurity.io',
       :headers => {'Content-type' => 'application/json', 'VGS-Log-Request' => 'all'},
-      :ssl => {:verify => false},
+      :ssl => {:ca_file => './cert.pem'},
       :proxy => "https://#{@username}:#{@password}@#{@forward_proxy}") do |f|
-    # f.request :json
     f.response :json
     f.adapter Faraday.default_adapter
   end
@@ -46,7 +44,7 @@ original_value = random_json
 puts original_value
 
 tokenized_value = tokenize_via_reverse_proxy original_value
-print(tokenized_value)
+puts tokenized_value
 raise 'Tokenize failed' if original_value == tokenized_value
 
 
