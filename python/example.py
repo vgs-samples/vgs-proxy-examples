@@ -31,8 +31,7 @@ def tokenize_via_reverse_proxy(original_data):
     r = requests.post(
         'https://{}/post'.format(reverse_proxy),
         data=original_data,
-        headers={"Content-type": "application/json", "VGS-Log-Request": "all"},
-        verify=False
+        headers={"Content-type": "application/json", "VGS-Log-Request": "all"}
     )
     assert r.status_code == 200
     return r.json()['data']
@@ -44,7 +43,7 @@ def reveal_via_forward_proxy(tokenized_data):
         data=tokenized_data,
         headers={"Content-type": "application/json", "VGS-Log-Request": "all"},
         proxies={"https": "https://{}:{}@{}".format(username, password, forward_proxy)},
-        verify=False
+        verify='cert.pem'
     )
     assert r.status_code == 200
     return r.json()['data']
