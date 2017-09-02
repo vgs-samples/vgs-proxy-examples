@@ -1,48 +1,19 @@
-import platform
 import os
 import json
 
 from faker import Factory
-from selenium import webdriver
-from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.proxy import Proxy, ProxyType
-
-from selenium import webdriver
-from selenium.webdriver.common.proxy import Proxy
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import zipfile
 
-# from selenium.webdriver import DesiredCapabilities
-# from selenium.webdriver.common.by import By
+diver_executable_path = 'http://selenium-chrome:4444/wd/hub'
 
-# proxy_host = "tnthm5gnofn.SANDBOX.verygoodproxy.io"
-# proxy_port = 8080
-# proxy_username = "USoPJ3oKKffD17FjC7FTBN5m"
-# proxy_password = "611898ed-1995-4d52-aa8b-bc439f616a7e"
-# SELENIUM_HUB_URL = "http://selenium-firefox:4444/wd/hub"
-
-# capabilities = webdriver.DesiredCapabilities.CHROME
-
-diver_executable_path = ''
-is_mac = platform.mac_ver()[0] is not ''
-is_linux = platform.linux_distribution()[0] is not ''
-if is_mac:
-    diver_executable_path = './chromedriver_mac'
-elif is_linux:
-    diver_executable_path = './chromedriver_linux'
-
-if not diver_executable_path: raise Exception('Unsupported OS')
-print("Using driver %s" % diver_executable_path)
-
-username = 'USgq5SCMRXVWZQXPViM6Dxyo'
-password = 'e73395db-1060-403b-a284-0cd4c9d25933'
-forward_proxy = 'tntg0ztxcnn.SANDBOX.verygoodproxy.com:8080'
-reverse_proxy = 'tntg0ztxcnn.SANDBOX.verygoodproxy.com'
+username = os.environ.get('FORWARD_HTTP_PROXY_USERNAME')
+password = os.environ.get('FORWARD_HTTP_PROXY_PASSWORD')
+forward_proxy = os.environ.get('FORWARD_HTTP_PROXY_HOST')
+reverse_proxy = os.environ.get('REVERSE_HTTP_PROXY_HOST')
 print(username, password, forward_proxy, reverse_proxy)
 
 fake = Factory.create()
@@ -64,7 +35,11 @@ def create_chrome_driver(host=None, port=None):
             zp.writestr("background.js", background_js)
 
         co.add_extension(plugin_file)
-    return webdriver.Chrome(executable_path=diver_executable_path, chrome_options=co)
+    driver = webdriver.Remote(
+        command_executor=diver_executable_path,
+        desired_capabilities=co.to_capabilities()
+    )
+    return driver
 
 
 def chrome_post(proxy=None, script=None):

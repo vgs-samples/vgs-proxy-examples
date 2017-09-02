@@ -1,4 +1,5 @@
 version: 2
+executorType: machine
 jobs:
   build:
     working_directory: ~/vault-examples
@@ -18,3 +19,7 @@ jobs:
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) python3-example
       - run: docker build -t ruby2-example ruby/
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) ruby2-example
+
+      - run: docker-compose -f selenium/docker-compose.yml build
+      - run: docker-compose -f selenium/docker-compose.yml up
+      - run: docker-compose -f selenium/docker-compose.yml example python example.py

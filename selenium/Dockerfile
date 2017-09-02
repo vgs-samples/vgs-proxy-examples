@@ -9,6 +9,4 @@ WORKDIR /src
 
 RUN pip install -r requirements.txt
 
-RUN chmod u+x /src/chromedriver_linux
-
 CMD ["python", "example.py"]
