@@ -21,5 +21,5 @@ jobs:
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) ruby2-example
 
       - run: docker-compose -f selenium/docker-compose.yml build
-      - run: docker-compose -f selenium/docker-compose.yml up
+      - run: docker-compose -f selenium/docker-compose.yml up -d
       - run: docker-compose -f selenium/docker-compose.yml example python example.py
