@@ -1,0 +1,13 @@
+{
+  "name": "nodejs",
+  "scripts": {
+    "test": "node example.js"
+  },
+  "dependencies": {
+    "faker": "^4.1.0",
+    "unirest": "^0.5.1"
+  },
+  "engines": {
+    "node": ">=7.6.0"
+  }
+}
