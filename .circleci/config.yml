@@ -18,3 +18,5 @@ jobs:
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) python3-example
       - run: docker build -t ruby2-example ruby/
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) ruby2-example
+      - run: docker build -t go-example go/
+      - run: docker run -t --env-file <(env | grep HTTP_PROXY) go-example
