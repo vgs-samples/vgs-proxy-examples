@@ -25,10 +25,10 @@ import java.io.IOException;
 public class ExampleTest {
     static Faker faker = new Faker();
 
-    static String username = "US6JXwGY219cUNWJ8jotyAMw";
-    static String password = "81d369b2-8c35-4ba4-9748-24315b15abaa";
-    static String forward_proxy = "tntbeiahp7q.SANDBOX.verygoodproxy.com:8080";
-    static String reverse_proxy = "tntbeiahp7q.SANDBOX.verygoodproxy.com";
+    static String username = System.getenv("FORWARD_HTTP_PROXY_USERNAME");
+    static String password = System.getenv("FORWARD_HTTP_PROXY_PASSWORD");
+    static String forward_proxy = System.getenv("FORWARD_HTTP_PROXY_HOST");
+    static String reverse_proxy = System.getenv("REVERSE_HTTP_PROXY_HOST");
 
     static {
         Unirest.setDefaultHeader("Content-type", "application/json");
