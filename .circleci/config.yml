@@ -31,3 +31,6 @@ jobs:
       
       - run: docker build -t go-example go/
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) go-example
+
+      - run: docker build -t java-example java/
+      - run: docker run -t --env-file <(env | grep HTTP_PROXY) java-example
