@@ -1,0 +1,14 @@
+version: '3.2'
+services:
+  example:
+    build: .
+    depends_on:
+      - composer
+    volumes:
+      - .:/app
+
+  composer:
+    image: composer/composer:php7
+    command: install
+    volumes:
+      - .:/app
