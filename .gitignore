@@ -8,3 +8,4 @@ enrichment.py
 try.py
 *lock*
 node_modules/
+vendor/

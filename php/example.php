@@ -71,7 +71,6 @@ function main()
     Print $redact_value . PHP_EOL;
     assert($original_value != $redact_value);
 
-
     $revealed_value = reveal_via_forward_proxy($redact_value);
     Print $revealed_value . PHP_EOL;
 
