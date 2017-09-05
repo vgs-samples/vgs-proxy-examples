@@ -3,21 +3,12 @@
 require_once 'vendor/autoload.php';
 
 
-//$headers = array(
-//    'Accept' => 'application/json'
-//);
-//$query = array('foo' => 'hello', 'bar' => 'world');
-//
-//$response = Unirest\Request::post('http://mockbin.com/request', $headers, $query);
-//
-//Print($response->code);        // HTTP Status code
-
 $faker = Faker\Factory::create();
 
-$username = "US6JXwGY219cUNWJ8jotyAMw";
-$password = "81d369b2-8c35-4ba4-9748-24315b15abaa";
-$forward_proxy = "tntbeiahp7q.SANDBOX.verygoodproxy.com:8080";
-$reverse_proxy = "tntbeiahp7q.SANDBOX.verygoodproxy.com";
+$username = getenv("FORWARD_HTTP_PROXY_USERNAME");
+$password = getenv("FORWARD_HTTP_PROXY_PASSWORD");;
+$forward_proxy = getenv("FORWARD_HTTP_PROXY_HOST");;
+$reverse_proxy = getenv("REVERSE_HTTP_PROXY_HOST");;
 echo $username, $password, $forward_proxy, $reverse_proxy . PHP_EOL;
 
 $client = new GuzzleHttp\Client();
@@ -31,7 +22,7 @@ function random_json()
 }
 
 
-function tokenize_via_reverse_proxy($original_data)
+function redact_via_reverse_proxy($original_data)
 {
     global $reverse_proxy, $client;
 
@@ -48,7 +39,7 @@ function tokenize_via_reverse_proxy($original_data)
 }
 
 
-function reveal_via_forward_proxy($tokenized_data)
+function reveal_via_forward_proxy($redact_data)
 {
     global $forward_proxy, $username, $password, $client;
     $proxies = explode(":", $forward_proxy);
@@ -58,32 +49,17 @@ function reveal_via_forward_proxy($tokenized_data)
                 "Content-type" => "application/json",
                 "VGS-Log-Request" => "all"
             ],
-//            'auth' => [$username, $password],
+            'auth' => [$username, $password],
             'curl' => [
                 CURLOPT_PROXY => $proxies[0],
                 CURLOPT_PROXYPORT => (int)$proxies[1],
                 CURLOPT_PROXYUSERPWD => "$username:$password",
             ],
-            'ssl_key' => "/Users/phuonghqh/Documents/working/vault-examples/php/cert.pem",
-            'body' => $tokenized_data
+            'verify' => "./cert.pem",
+            'body' => $redact_data
         ]
     );
     return json_decode($response->getBody(), true)['data'];
-//    curl_setopt($ch, CURLOPT_SSLCERT, '/path/to/cert/client-cert.pem');
-
-//    Unirest\Request::curlOpt(CURLOPT_SSLCERT, "/Users/phuonghqh/Documents/working/vault-examples/php/cert.pem");
-//    Unirest\Request::proxy($proxies[0], $proxies[1]);
-//    Unirest\Request::proxyAuth($username, $password, CURLAUTH_BASIC);
-//
-//    $response = Unirest\Request::post(
-//        "https://httpbin.verygoodsecurity.io/post",
-//        array(
-//            "Content-type" => "application/json",
-//            "VGS-Log-Request" => "all"
-//        ),
-//        $tokenized_data
-//    );
-//    return $response->body->data;
 }
 
 function main()
@@ -91,12 +67,12 @@ function main()
     $original_value = random_json();
     Print $original_value . PHP_EOL;
 
-    $tokenized_value = tokenize_via_reverse_proxy($original_value);
-    Print $tokenized_value . PHP_EOL;
-    assert($original_value != $tokenized_value);
+    $redact_value = redact_via_reverse_proxy($original_value);
+    Print $redact_value . PHP_EOL;
+    assert($original_value != $redact_value);
 
 
-    $revealed_value = reveal_via_forward_proxy($tokenized_value);
+    $revealed_value = reveal_via_forward_proxy($redact_value);
     Print $revealed_value . PHP_EOL;
 
     assert($revealed_value == $original_value);
