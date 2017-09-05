@@ -6,3 +6,5 @@ env/
 enrichment.py
 *.lock
 try.py
+*lock*
+node_modules/
