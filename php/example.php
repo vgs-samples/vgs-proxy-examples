@@ -6,9 +6,9 @@ require_once 'vendor/autoload.php';
 $faker = Faker\Factory::create();
 
 $username = getenv("FORWARD_HTTP_PROXY_USERNAME");
-$password = getenv("FORWARD_HTTP_PROXY_PASSWORD");;
-$forward_proxy = getenv("FORWARD_HTTP_PROXY_HOST");;
-$reverse_proxy = getenv("REVERSE_HTTP_PROXY_HOST");;
+$password = getenv("FORWARD_HTTP_PROXY_PASSWORD");
+$forward_proxy = getenv("FORWARD_HTTP_PROXY_HOST");
+$reverse_proxy = getenv("REVERSE_HTTP_PROXY_HOST");
 echo $username, $password, $forward_proxy, $reverse_proxy . PHP_EOL;
 
 $client = new GuzzleHttp\Client();
