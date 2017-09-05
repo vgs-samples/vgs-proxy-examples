@@ -9,3 +9,4 @@ try.py
 *lock*
 node_modules/
 vendor/
+.me/
