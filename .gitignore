@@ -1,8 +1,10 @@
 .idea/
 env/
 *.iml
-.env
+.env*
 *.pyc
 enrichment.py
+*.lock
+try.py
 *lock*
 node_modules/

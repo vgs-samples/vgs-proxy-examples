@@ -1,0 +1,23 @@
+version: '2.1'
+services:
+  selenium-chrome:
+    image: selenium/standalone-chrome
+    expose:
+     - 4444
+     - 5900
+    ports:
+     - "4444:4444"
+     - "5900:5900"
+  example:
+    environment:
+      - FORWARD_HTTP_PROXY_USERNAME
+      - FORWARD_HTTP_PROXY_PASSWORD
+      - FORWARD_HTTP_PROXY_HOST
+      - REVERSE_HTTP_PROXY_HOST
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+     - selenium-chrome
+    links:
+     - selenium-chrome
