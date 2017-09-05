@@ -1,0 +1,10 @@
+package: .
+
+import:
+- package: gopkg.in/resty.v0
+
+testImport:
+- package: github.com/icrowley/fake
+- package: gopkg.in/stretchr/testify.v1
+  subpackages:
+  - assert
