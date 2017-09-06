@@ -1,7 +1,7 @@
 .idea/
 env/
 *.iml
-.env*
+.env
 *.pyc
 enrichment.py
 *.lock
@@ -10,3 +10,5 @@ try.py
 node_modules/
 vendor/
 .me/
+target/
+
