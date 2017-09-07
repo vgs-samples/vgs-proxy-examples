@@ -4,9 +4,13 @@ env/
 .env*
 *.pyc
 enrichment.py
-*.lock
+
 try.py
-*lock*
 node_modules/
 vendor/
 .me/
+cs/
+go/src/
+java/
+glide.lock
+Gemfile.lock
