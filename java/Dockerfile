@@ -6,6 +6,7 @@ RUN echo $(mvn --version)
 ADD . /src
 WORKDIR /src
 
-RUN mvn clean install
+#no run test for now since there is no env vars put in
+RUN mvn clean compile
 
 CMD ["mvn", "verify"]
