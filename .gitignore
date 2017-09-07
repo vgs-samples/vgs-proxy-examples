@@ -5,4 +5,10 @@ env/
 *.pyc
 enrichment.py
 *.lock
+try.py
+*lock*
+node_modules/
+vendor/
+.me/
 target/
+

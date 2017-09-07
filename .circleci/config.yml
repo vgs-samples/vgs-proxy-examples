@@ -13,8 +13,12 @@ jobs:
       image: circleci/classic:edge
     steps:
       - checkout
+
+      - run: docker-compose -f php/docker-compose.yml build
+      - run: docker-compose -f php/docker-compose.yml up
+      - run: docker-compose -f php/docker-compose.yml run example php example.php
+
       - run: docker build --build-arg BASE_IMAGE_TAG=2 -t python2-example python/
-      
       - run: docker build -t python3-example python/
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) python2-example
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) python3-example
@@ -25,7 +29,8 @@ jobs:
       - run: docker-compose -f selenium/docker-compose.yml build
       - run: docker-compose -f selenium/docker-compose.yml up -d
       - run: docker-compose -f selenium/docker-compose.yml run example python example.py
-      
+      - run: docker-compose -f selenium/docker-compose.yml down
+
       - run: docker build -t nodejs-example nodejs/
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) nodejs-example
       
