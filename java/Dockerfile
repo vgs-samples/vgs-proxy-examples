@@ -7,6 +7,6 @@ ADD . /src
 WORKDIR /src
 
 #no run test for now since there is no env vars put in
-RUN mvn clean compile
+RUN mvn clean install -DskipTests
 
 CMD ["mvn", "verify"]
