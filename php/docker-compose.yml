@@ -1,5 +1,11 @@
 version: '3.2'
 services:
+  composer:
+    image: composer/composer:php7
+    command: install
+    volumes:
+      - .:/app
+
   example:
     environment:
       - FORWARD_HTTP_PROXY_USERNAME
@@ -9,11 +15,5 @@ services:
     build: .
     depends_on:
       - composer
-    volumes:
-      - .:/app
-
-  composer:
-    image: composer/composer:php7
-    command: install
     volumes:
       - .:/app

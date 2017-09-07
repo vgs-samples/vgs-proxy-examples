@@ -25,7 +25,8 @@ jobs:
       - run: docker-compose -f selenium/docker-compose.yml build
       - run: docker-compose -f selenium/docker-compose.yml up -d
       - run: docker-compose -f selenium/docker-compose.yml run example python example.py
-      
+      - run: docker-compose -f selenium/docker-compose.yml down
+
       - run: docker build -t nodejs-example nodejs/
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) nodejs-example
       
@@ -34,7 +35,6 @@ jobs:
 
       - run: docker-compose -f php/docker-compose.yml build
       - run: docker-compose -f php/docker-compose.yml up
-      - run: docker-compose -f php/docker-compose.yml run example php example.php
 
       - run: docker build -t java-example java/
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) java-example

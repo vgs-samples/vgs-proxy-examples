@@ -2,7 +2,7 @@ FROM php:7
 
 RUN echo $(php --version)
 
-ADD . /src
-WORKDIR /src
+ADD . /app
+WORKDIR /app
 
 CMD ["php", "example.php"]
