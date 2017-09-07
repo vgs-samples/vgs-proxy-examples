@@ -33,8 +33,8 @@ jobs:
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) go-example
 
       - run: docker-compose -f php/docker-compose.yml build
-      - run: docker-compose -f php/docker-compose.yml up -d
-      - run: docker-compose -f php/docker-compose.yml run example php example.php
+      - run: docker-compose -f php/docker-compose.yml up
+      - run: docker-compose -f php/docker-compose.yml down
 
       - run: docker build -t java-example java/
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) java-example
