@@ -12,3 +12,4 @@ vendor/
 .me/
 target/
 
+bin/
