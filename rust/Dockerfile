@@ -1,0 +1,8 @@
+ARG BASE_IMAGE_TAG=3
+
+FROM 
+
+RUN 
+
+ADD . /src
+WORKDIR /src
