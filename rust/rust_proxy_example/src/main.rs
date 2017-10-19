@@ -1,31 +1,18 @@
-#[macro_use]
 extern crate hyper;
 extern crate hyper_tls;
 extern crate http;
-extern crate futures;
-extern crate tokio_core;
 extern crate envy;
 extern crate reqwest;
 #[macro_use]
 extern crate serde_derive;
-#[macro_use]
 extern crate serde_json;
 #[macro_use]
 extern crate fake;
-extern crate url;
 
-use std::io::{self, Write, Read};
-use std::sync::Arc;
+use std::io::{self, Read};
 use std::fs::File;
-use url::{Url, ParseError};
-use futures::{Future, Stream};
-use futures::future;
-use tokio_core::reactor::Core;
 use serde_json::Value;
-use hyper::header::{Headers, ContentType, ContentLength};
-use hyper::{Method, StatusCode, Uri, Error};
-use hyper_tls::{HttpsConnector, HttpsConnecting};
-use reqwest::{Body, Certificate, Proxy, Client, Request, RequestBuilder, IntoUrl};
+use hyper::header::{ContentType};
 
 
 fn redact_via_reverse_proxy(original_data: String, reverse_http_proxy_host: String) -> String{
