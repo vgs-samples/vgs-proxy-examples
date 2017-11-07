@@ -10,7 +10,7 @@ Namespace test
         <TestMethod()>
         Public Sub TestMe()
             Console.WriteLine(reverseProxy)
-            Dim originalData = "{""secret"":""joe""}"
+            Dim originalData = "{""secret"":""41111-1111-11111""}"
             Console.WriteLine(originalData)
             Dim redactData = RedactViaReverseProxy(originalData).Result
             Console.WriteLine(redactData)
