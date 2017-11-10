@@ -12,3 +12,4 @@ lazy val root = (project in file(".")).
 
   libraryDependencies += scalaTest % Test
   libraryDependencies += "net.databinder.dispatch" %% "dispatch-core" % "0.13.2"
+  libraryDependencies += "it.justwrote" %% "scala-faker" % "0.3"
