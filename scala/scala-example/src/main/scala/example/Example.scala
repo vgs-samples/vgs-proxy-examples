@@ -17,14 +17,21 @@ object Proxies extends App {
   val fake = Name.name
 
   //Reverse Proxy
-  val reverse_url: String = (s"https://$reverseProxy/post")
+  val reverseUrl: String = (s"https://$reverseProxy/post")
   val data = s"""{"secret" : "$fake"}"""
-  val request = Http(reverse_url).postData(data).header("Content-type", "application/json")
+  val request = Http(reverseUrl).postData(data).header("Content-type", "application/json")
   val response: HttpResponse[String] = request.asString
   val json = (response.body).parseJson
   val redacted = json.convertTo[Map[String, JsValue]]
-  val redacted_secret = redacted.get("json").get
+  val redactedSecret = redacted.get("json").get.toString
 
   //Forward forwardProxy
+  val url: String = "https://httpbin.verygoodsecurity.io/post"
+  val proxyHost= s"https://$username:$password@$forwardProxy"
+  val requestForward = Http(url).proxy(proxyHost, 8080).option(HttpOptions.allowUnsafeSSL).postData(redactedSecret).header("Content-type", "application/json")
+  val responseForward: HttpResponse[String] = requestForward.asString
+  val forward_json = (responseForward.body).parseJson
+  val revealed = json.convertTo[Map[String, JsValue]]
+  val revealedSecret = revealed.get("json").get
 
 }
