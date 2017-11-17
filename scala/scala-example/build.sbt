@@ -10,7 +10,7 @@ lazy val root = (project in file(".")).
   )
 )
 
-  libraryDependencies += scalaTest % Test
-  libraryDependencies +=  "org.scalaj" %% "scalaj-http" % "2.3.0"
+  libraryDependencies += "org.scalaj" %% "scalaj-http" % "2.3.0"
   libraryDependencies += "it.bitbl" %% "scala-faker" % "0.4"
   libraryDependencies += "io.spray" %%  "spray-json" % "1.3.3"
+  libraryDependencies += "com.typesafe.play" %% "play-ahc-ws-standalone" % "1.1.3"
