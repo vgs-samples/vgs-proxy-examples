@@ -1,3 +1,4 @@
+#[macro_use]
 extern crate hyper;
 extern crate hyper_tls;
 extern crate http;
@@ -8,7 +9,9 @@ extern crate serde_derive;
 extern crate serde_json;
 #[macro_use]
 extern crate fake;
+extern crate base64;
 
+use base64::encode;
 use std::io::{self, Read};
 use std::fs::File;
 use serde_json::Value;
@@ -17,7 +20,7 @@ use hyper::header::{ContentType};
 
 fn redact_via_reverse_proxy(original_data: String, reverse_http_proxy_host: String) -> String{
     let client = reqwest::Client::new();
-    let url = format!("https://{}", reverse_http_proxy_host);
+    let url = format!("https://{}/post", reverse_http_proxy_host);
     let mut res = client.post(&url)
         .header(ContentType::json())
         .body(original_data)
@@ -38,22 +41,39 @@ fn redact_via_reverse_proxy(original_data: String, reverse_http_proxy_host: Stri
 
 fn reveal_via_forward_proxy(redacted_data: String, username: String, password: String,
      forward_proxy: String) -> String {
-    let raw_proxy = format!("https://{}:{}@{}", username, password, forward_proxy);
+
+     let auth: String = base64::encode(format!("{}:{}", username, password).as_bytes());
+
+     header! { (ProxyAuth, "Proxy-Authorization") => [String] }
+
+    let raw_proxy = format!("https://{}", forward_proxy);
     let proxy = reqwest::Proxy::all(&raw_proxy).unwrap();
     let mut buf = Vec::new();
     File::open("../cert.der").unwrap().read_to_end(&mut buf).unwrap();
     let cert = reqwest::Certificate::from_der(&buf).unwrap();
     let client = reqwest::Client::builder()
         .add_root_certificate(cert)
+        .danger_disable_hostname_verification()
         .proxy(proxy)
         .build().unwrap();
+
+    fn construct_headers() -> Headers {
+      let mut headers = Headers::new();
+        headers.set(UserAgent::new("Reqwest"));
+        headers.set(ContentType::json());
+        headers.set_raw("Proxy-Authorization", (format!("{} {}", "Basic", auth)))
+        headers
+    }
+
     let mut res = client.post("https://httpbin.verygoodsecurity.io/post")
+        .headers(ProxyAuth(format!("{} {}", "Basic", auth)))
         .header(ContentType::json())
         .body(redacted_data)
         .send().unwrap();
-    let mut buf = String::new();
-    &res.read_to_string(&mut buf).expect("Failed to read response");
-    let v: Value = serde_json::from_str(&buf).map_err(|e| {
+
+    let mut buff = String::new();
+    &res.read_to_string(&mut buff).expect("Failed to read response");
+    let v: Value = serde_json::from_str(&buff).map_err(|e| {
         io::Error::new(
             io::ErrorKind::Other,
             e
