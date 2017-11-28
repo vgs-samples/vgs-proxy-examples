@@ -37,7 +37,7 @@ object Example extends App {
     }
 
     def revealViaForwardProxy(redactedSecret: String): String = {
-        System.setProperty("javax.net.ssl.trustStore", this.getClass.getClassLoader.getResource("cacerts").getFile)
+        System.setProperty("javax.net.ssl.trustStore", "src/main/resources/cacerts")
         System.setProperty("javax.net.ssl.trustStorePassword", "password")
         System.setProperty("javax.net.ssl.trustStoreType", "JKS")
 
