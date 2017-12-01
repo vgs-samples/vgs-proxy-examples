@@ -42,7 +42,10 @@ def reveal_via_forward_proxy(tokenized_data):
         'https://httpbin.verygoodsecurity.io/post',
         data=tokenized_data,
         headers={"Content-type": "application/json", "VGS-Log-Request": "all"},
-        proxies={"https": "https://{}:{}@{}".format(username, password, forward_proxy)},
+        proxies={
+            "https": "https://{}:{}@{}".format(username, password, forward_proxy),
+            "http": "https://{}:{}@{}".format(username, password, forward_proxy)
+        },
         verify='cert.pem'
     )
     assert r.status_code == 200
