@@ -14,8 +14,9 @@ extern crate base64;
 use base64::encode;
 use std::io::{self, Read};
 use std::fs::File;
+use std::cmp;
 use serde_json::Value;
-use hyper::header::{Headers, ContentType};
+use reqwest::header::{UserAgent, ContentType};
 
 
 fn redact_via_reverse_proxy(original_data: String, reverse_http_proxy_host: String) -> String{
@@ -69,8 +70,8 @@ fn reveal_via_forward_proxy(redacted_data: String, username: String, password: S
         .proxy(proxy)
         .build().unwrap();
 
-    let url = format!("{}", "https://httpbin.org/post");
-    
+    let url = format!("{}", "http://httpbin.org/post");
+
     let mut res = client.post(&url)
         .json(&json_data)
         .send().unwrap();
@@ -112,10 +113,15 @@ fn main(){
         println!("{}", original_data); //show original_data
 
         //redact_data
-        let redacted_data = redact_via_reverse_proxy(original_data, reverse_proxy);
+        let redacted_data = redact_via_reverse_proxy(original_data.clone(), reverse_proxy);
 
         //reveal_data
-        let revealed_data = reveal_via_forward_proxy(redacted_data, username, password, forward_proxy);
+        let revealed_data = reveal_via_forward_proxy(redacted_data.clone(), username, password, forward_proxy);
+
+        assert_eq!(original_data.clone(), revealed_data.clone());
+        assert!(original_data.clone() != redacted_data.clone());
+
+
 
 
 }
