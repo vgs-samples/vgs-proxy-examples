@@ -46,3 +46,5 @@ jobs:
       - run: docker build -t scala-example scala/
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) scala-example
      
+      - run: docker build -t rust-example rust/
+      - run: docker run -t --env-file <(env | grep HTTP_PROXY) rust-example  
