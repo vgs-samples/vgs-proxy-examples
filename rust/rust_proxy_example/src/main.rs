@@ -1,7 +1,6 @@
 extern crate hyper;
 extern crate hyper_tls;
 extern crate hyper_proxy;
-extern crate http;
 extern crate envy;
 extern crate reqwest;
 #[macro_use]
