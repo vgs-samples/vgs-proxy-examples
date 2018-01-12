@@ -1,4 +1,3 @@
-#[macro_use]
 extern crate hyper;
 extern crate hyper_tls;
 extern crate hyper_proxy;
@@ -16,7 +15,6 @@ use std::io::{self, Read};
 use std::fs::File;
 use serde_json::Value;
 use reqwest::header::{ContentType};
-use hyper_proxy::Proxy as HyperProxy;
 use hyper::header::Basic;
 
 
@@ -47,10 +45,6 @@ fn reveal_via_forward_proxy(redacted_data: String, username: String, password: S
 
    let s: &str = &*redacted_data;
    let json_data: Value = serde_json::from_str(&s).unwrap();
-
-   let auth: String = base64::encode(format!("{}:{}", username, password).as_bytes());
-
-   header! { (ProxyAuth, "Proxy-Authorization") => [String] }
 
    let raw_proxy = format!("http://{}", forward_proxy);
    let mut proxy = reqwest::Proxy::all(&raw_proxy).unwrap();
