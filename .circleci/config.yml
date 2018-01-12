@@ -42,3 +42,7 @@ jobs:
 
       - run: docker build -t cs-example cs/
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) cs-example
+
+      - run: docker build -t rust-example rust/
+      - run: docker run -t --env-file <(env | grep HTTP_PROXY) rust-example
+
