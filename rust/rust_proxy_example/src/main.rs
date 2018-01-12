@@ -53,7 +53,7 @@ fn reveal_via_forward_proxy(redacted_data: String, username: String, password: S
     });
 
    let mut buf = Vec::new();
-   File::open("../cert.der").unwrap().read_to_end(&mut buf).unwrap();
+   File::open("cert.der").unwrap().read_to_end(&mut buf).unwrap();
    let cert = reqwest::Certificate::from_der(&buf).unwrap();
    let client = reqwest::Client::builder()
      .add_root_certificate(cert)
