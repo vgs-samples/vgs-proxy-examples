@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{title}}</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7onå3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.2.3/jquery.payment.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <!--Leverage jQuery to standardize behavior across browsers -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#fire").click(function (event) {
+                var s_Pan = $("#cardNumber").val(); //get the unprotected PAN from the form
+
+                var wsUrl = "https://tntpltp7ixe.SANDBOX.verygoodproxy.com/post";  //specify the Voltage Appliance WebService endpoint
+                //Marshal up a ProtectFormattedData SOAP Mesage:
+                //var jsonRequest = '{"' + s_DPFormat + '": "' + s_Pan + '"}';
+                var jsonRequest = '{"CCN":"' + s_Pan + '"}';
+                $.ajax({
+                    type: "POST",
+                    url: wsUrl,
+                    data: jsonRequest,
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: processSuccess,
+                    error: processError
+                });
+            });
+        });
+        function processSuccess(data, status, req) { // Handle success and do something with the result
+            if (status == "success")
+                $("#response").text("Response token: " + $.parseJSON(req.responseText)['data']); //parse the dataOut tag and stuff the response
+        }
+        function processError(data, status, req) { // Handle error condition
+            alert(req.responseText + " " + status);
+        }
+    </script>
+
+</head>
+<body>
+{{{body}}}
+</body>
+</html>
