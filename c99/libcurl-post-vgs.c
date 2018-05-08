@@ -31,12 +31,7 @@ void post_with_libcurl(void)
     char* username = (char*) getenv("FORWARD_HTTP_PROXY_USERNAME");
     char* password = (char*) getenv("FORWARD_HTTP_PROXY_PASSWORD");
     char* forward_proxy = (char*) getenv("FORWARD_HTTP_PROXY_HOST");
-    //const char* reverse_proxy = getenv("REVERSE_HTTP_PROXY_HOST");
-
-    //Set the properties for our Vault's foward proxy details:
-    //char *vgs_foward_proxy_url = "http://tntlvnzzqsz.SANDBOX.verygoodproxy.com:8080";
-    //char *vgs_foward_proxy_username = "US2dihmmMZD8BGsQj2yKgjZk";
-    //char *vgs_forward_proxy_password = "6e478e95-52ed-4c3b-9493-3aefa7f9137a";
+    //const char* reverse_proxy = getenv("REVERSE_HTTP_PROXY_HOST");  // if needed for future method declarationgit
 
     //what we want to post:
     char *json_body = "{\"CCN\": \"4012882363931881\"}"; //This is the FPE encrypted test Visa PAN from our backend database
