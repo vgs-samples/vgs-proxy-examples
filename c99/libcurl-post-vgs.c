@@ -26,10 +26,11 @@ void post_with_libcurl(void)
     CURLcode res;
     struct curl_slist *headers = NULL;
 
-    //Set the properties for our Vault's foward proxy details:
-    char *vgs_foward_proxy_url = "http://tntlvnzzqsz.SANDBOX.verygoodproxy.com:8080";
-    char *vgs_foward_proxy_username = "US2dihmmMZD8BGsQj2yKgjZk";
-    char *vgs_forward_proxy_password = "6e478e95-52ed-4c3b-9493-3aefa7f9137a";
+    // Get our system wide environment variables
+    const char* username = getenv("FORWARD_HTTP_PROXY_USERNAME");
+    const char* password = getenv("FORWARD_HTTP_PROXY_PASSWORD");
+    const char* forward_proxy = getenv("FORWARD_HTTP_PROXY_HOST");
+    //const char* reverse_proxy = getenv("REVERSE_HTTP_PROXY_HOST");
 
     //what we want to post:
     char *json_body = "{\"CCN\": \"4012882363931881\"}"; //This is the FPE encrypted test Visa PAN from our backend database
@@ -52,9 +53,9 @@ void post_with_libcurl(void)
         curl_easy_setopt(curl, CURLOPT_URL, "https://httpbin.verygoodsecurity.io/post"); //Third Party API to share sensitive data with
 
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0); //TODO: fix this never blindly accept server certificates
-        curl_easy_setopt(curl, CURLOPT_PROXY, vgs_foward_proxy_url);
-        curl_easy_setopt(curl, CURLOPT_PROXYUSERNAME, vgs_foward_proxy_username);
-        curl_easy_setopt(curl, CURLOPT_PROXYPASSWORD, vgs_forward_proxy_password);
+        curl_easy_setopt(curl, CURLOPT_PROXY, forward_proxy);
+        curl_easy_setopt(curl, CURLOPT_PROXYUSERNAME, username);
+        curl_easy_setopt(curl, CURLOPT_PROXYPASSWORD, password);
 
         /* Now specify the POST data */
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
