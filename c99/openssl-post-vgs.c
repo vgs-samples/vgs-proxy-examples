@@ -16,11 +16,17 @@
 #include <openssl/err.h>
 #include <openssl/bio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define HOST "tntlvnzzqsz.SANDBOX.verygoodproxy.com"//get this from the VGS Dashboard
 #define PORT "443"
 
 void post_with_openssl(void) {
+
+        // Get our system wide env variables for proxy settings
+    char* username = (char*) getenv("FORWARD_HTTP_PROXY_USERNAME");
+    char* password = (char*) getenv("FORWARD_HTTP_PROXY_PASSWORD");
+    char* proxy_host = (char*) getenv("FORWARD_HTTP_PROXY_HOST");
 
     //  Use a bio, ssl and ssl context:
     BIO* bio;
