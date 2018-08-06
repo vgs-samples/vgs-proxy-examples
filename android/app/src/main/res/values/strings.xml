@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">vgs-cardform-demo</string>
+    <string name="add_form_title">add a new payment card</string>
+    <string name="purchase">Purchase</string>
+    <string name="valid">Form is valid</string>
+    <string name="invalid">Form is invalid</string>
+    <string name="light_theme_form">Light Theme</string>
+    <string name="dark_theme_form">Dark Theme</string>
+    <string name="scan_with_card_io">Scan with card.io</string>
+    <string name="proxy_url">https://tntlvnzzqsz.SANDBOX.verygoodproxy.com</string>
+    <string name="mbe_endpoint">/post</string>
+</resources>
