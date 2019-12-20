@@ -45,7 +45,8 @@ def reveal_via_forward_proxy(tokenized_data):
         proxies={
             "https": "https://{}:{}@{}".format(username, password, forward_proxy),
             "http": "https://{}:{}@{}".format(username, password, forward_proxy)
-        }
+        },
+        verify=False
     )
     assert r.status_code == 200
     return r.json()['data']
