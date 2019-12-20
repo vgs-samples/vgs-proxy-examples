@@ -5,10 +5,10 @@ jobs:
     working_directory: ~/vault-examples
     docker:
     environment:
-      FORWARD_HTTP_PROXY_USERNAME: USnrfoj6Jk29uqVnFNmeH2r4
-      FORWARD_HTTP_PROXY_PASSWORD: e8a1e647-0c4a-4524-8305-da88f1c3ac59
-      FORWARD_HTTP_PROXY_HOST: tnta6xo74mx.SANDBOX.verygoodproxy.com:8080
-      REVERSE_HTTP_PROXY_HOST: tnta6xo74mx.SANDBOX.verygoodproxy.com
+      FORWARD_HTTP_PROXY_USERNAME: USgZBYM6MVyd3eG2g7Gf3wc8
+      FORWARD_HTTP_PROXY_PASSWORD: 211171fb-9323-4e3a-84f3-f0004ab0c21c
+      FORWARD_HTTP_PROXY_HOST: tntzanp4lia.SANDBOX.verygoodproxy.com:8080
+      REVERSE_HTTP_PROXY_HOST: tntzanp4lia.SANDBOX.verygoodproxy.com
     machine:
       image: circleci/classic:edge
     steps:
