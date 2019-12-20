@@ -55,7 +55,7 @@ function reveal_via_forward_proxy($redact_data)
                 CURLOPT_PROXYPORT => (int)$proxies[1],
                 CURLOPT_PROXYUSERPWD => "$username:$password",
             ],
-            'cert' => './cert.pem',
+            'verify' => false,
             'body' => $redact_data,
             'debug' => true
         ]
