@@ -44,7 +44,7 @@ function reveal_via_forward_proxy($redact_data)
     global $forward_proxy, $username, $password, $client;
     $proxies = explode(":", $forward_proxy);
 
-    $response = $client->post("https://httpbin.verygoodsecurity.io/post", [
+    $response = $client->post("https://echo.apps.verygood.systems/post", [
             'headers' => [
                 "Content-type" => "application/json",
                 "VGS-Log-Request" => "all"

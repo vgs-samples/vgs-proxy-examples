@@ -39,7 +39,7 @@ def tokenize_via_reverse_proxy(original_data):
 
 def reveal_via_forward_proxy(tokenized_data):
     r = requests.post(
-        'https://httpbin.verygoodsecurity.io/post',
+        'https://echo.apps.verygood.systems/post',
         data=tokenized_data,
         headers={"Content-type": "application/json", "VGS-Log-Request": "all"},
         proxies={
