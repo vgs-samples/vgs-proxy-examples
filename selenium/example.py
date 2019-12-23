@@ -26,19 +26,10 @@ def random_json():
 
 
 def create_chrome_driver(host=None, port=None):
-    print('create_chrome_driver')
-    print(host)
-    print(port)
     co = Options()
     if host is not None and port is not None:
         manifest_json = read_script('./proxy_ext/manifest.json')
-        print('manifest_json begin')
-        print(manifest_json)
-        print('manifest_json end')
         background_js = read_script('./proxy_ext/background.js', host=host, port=port, user=username, password=password)
-        print('background_js begin')
-        print(background_js)
-        print('background_js end')
         with zipfile.ZipFile(plugin_file, 'w') as zp:
             zp.writestr("manifest.json", manifest_json)
             zp.writestr("background.js", background_js)

@@ -56,8 +56,7 @@ function reveal_via_forward_proxy($redact_data)
                 CURLOPT_PROXYUSERPWD => "$username:$password",
             ],
             'verify' => './cert.pem',
-            'body' => $redact_data,
-            'debug' => true
+            'body' => $redact_data
         ]
     );
     return json_decode($response->getBody(), true)['data'];

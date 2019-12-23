@@ -26,6 +26,7 @@ jobs:
       - run: docker build -t ruby2-example ruby/
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) ruby2-example
 
+#      TODO: fix chrome driver creation in example py
 #      - run: docker-compose -f selenium/docker-compose.yml build
 #      - run: docker-compose -f selenium/docker-compose.yml up -d
 #      - run: docker-compose -f selenium/docker-compose.yml run example python example.py
