@@ -68,7 +68,7 @@ def read_script(filename=None, **kwargs):
 
 def tokenize_via_reverse_proxy(original_data):
     script = read_script('./post_token.js', url='https://{}/post'.format(reverse_proxy), data=original_data)
-    data = chrome_post(proxy=reverse_proxy, script=script)
+    data = chrome_post(script=script)
     return json.loads(data)
 
 

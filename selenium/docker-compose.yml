@@ -8,6 +8,8 @@ services:
     ports:
      - "4444:4444"
      - "5900:5900"
+    volumes: 
+     - /tmp:/tmp
   example:
     environment:
       - FORWARD_HTTP_PROXY_USERNAME

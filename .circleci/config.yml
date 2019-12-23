@@ -50,6 +50,6 @@ jobs:
 
       #      TODO: fix chrome driver creation in example py
       - run: docker-compose -f selenium/docker-compose.yml build
-      - run: docker-compose -f selenium/docker-compose.yml up
+      - run: docker-compose -f selenium/docker-compose.yml up -d
       - run: docker-compose -f selenium/docker-compose.yml run example python example.py
       - run: docker-compose -f selenium/docker-compose.yml down
