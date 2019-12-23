@@ -26,11 +26,6 @@ jobs:
       - run: docker build -t ruby2-example ruby/
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) ruby2-example
 
-#      TODO: fix chrome driver creation in example py
-#      - run: docker-compose -f selenium/docker-compose.yml build
-#      - run: docker-compose -f selenium/docker-compose.yml up -d
-#      - run: docker-compose -f selenium/docker-compose.yml run example python example.py
-#      - run: docker-compose -f selenium/docker-compose.yml down
 
       - run: docker build -t nodejs-example nodejs/
       - run: docker run -t --env-file <(env | grep HTTP_PROXY) nodejs-example
@@ -50,5 +45,11 @@ jobs:
       # - run: docker build -t rust-example rust/
       # - run: docker run -t --env-file <(env | grep HTTP_PROXY) rust-example 
       # Rust build is broken
-      
+
       - run: docker build -t clang-example c99/
+
+      #      TODO: fix chrome driver creation in example py
+            - run: docker-compose -f selenium/docker-compose.yml build
+            - run: docker-compose -f selenium/docker-compose.yml up -d
+            - run: docker-compose -f selenium/docker-compose.yml run example python example.py
+            - run: docker-compose -f selenium/docker-compose.yml down
