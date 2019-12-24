@@ -28,6 +28,7 @@ jobs:
 
       - run: docker-compose -f selenium/docker-compose.yml build
       - run: docker-compose -f selenium/docker-compose.yml up -d
+      - run: sleep 5
       - run: docker-compose -f selenium/docker-compose.yml run example python example.py
       - run: docker-compose -f selenium/docker-compose.yml down
 
