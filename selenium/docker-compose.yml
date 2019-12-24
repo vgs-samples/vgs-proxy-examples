@@ -1,7 +1,7 @@
 version: '2.1'
 services:
   selenium-chrome:
-    image: selenium/standalone-chrome
+    image: selenium/standalone-chrome:3.141.59-oxygen
     expose:
      - 4444
      - 5900
