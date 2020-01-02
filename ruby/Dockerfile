@@ -1,4 +1,4 @@
-FROM ruby:2
+FROM ruby:2.6
 
 RUN echo $(ruby --version)
 
