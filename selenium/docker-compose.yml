@@ -1,13 +1,15 @@
 version: '2.1'
 services:
   selenium-chrome:
-    image: selenium/standalone-chrome
+    image: selenium/standalone-chrome:3.141.59-oxygen
     expose:
      - 4444
      - 5900
     ports:
      - "4444:4444"
      - "5900:5900"
+    volumes: 
+     - /tmp:/tmp
   example:
     environment:
       - FORWARD_HTTP_PROXY_USERNAME
