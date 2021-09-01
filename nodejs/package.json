@@ -1,13 +1,17 @@
 {
   "name": "nodejs",
   "scripts": {
-    "test": "node example.js"
+    "test": "node example.js",
+    "prepublish": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "dependencies": {
     "faker": "^4.1.0",
-    "unirest": "^0.5.1"
+    "unirest": "^0.5.1",
+    "@snyk/protect": "latest"
   },
   "engines": {
     "node": ">=7.6.0"
-  }
+  },
+  "snyk": true
 }
