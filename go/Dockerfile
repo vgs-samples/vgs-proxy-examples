@@ -1,4 +1,4 @@
-FROM golang:1.9
+FROM golang:1.16.14
 
 RUN go get -u github.com/Masterminds/glide
 RUN mkdir -p $GOPATH/src/example
